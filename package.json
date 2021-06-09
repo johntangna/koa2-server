@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@types/koa": "^2.13.3",
-    "@types/node": "^15.12.2"
+    "@types/node": "^15.12.2",
+    "xl_close_port": "^1.0.1"
   }
 }
