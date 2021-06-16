@@ -1,7 +1,9 @@
-const mysql = require('mysql')
-const path = require('path')
-const config = require('../config')
-const db = config.DATABASE
+const mysql = require('mysql');
+const fs = require("fs");
+const path = require("path");
+const config = require("../config");
+const db = config.DATABASE;
+
 
 const pool = mysql.createPool({
   host: db.HOST,
@@ -9,41 +11,41 @@ const pool = mysql.createPool({
   password: db.PASSWORD,
   database: db.DATABASE,
   connectionLimit: db.CONNECTION_LIMIT
-})
-
+});
 const utils = {
-  //数据库查询方法
+  // 数据库查询方法
   query: (sql, values) => {
     return new Promise((resolve, reject) => {
       pool.getConnection((err, connection) => {
         if (err) {
-          reject(err)
+          return reject(err);
         } else {
           connection.query(sql, values, (err, rows) => {
-            connection.release()
+            console.dir(values)
+            connection.release();
             if (err) {
-              reject(err)
+              return reject(err)
             } else {
-              resolve(rows)
+              return resolve(rows);
             }
           })
         }
       })
-    })
+    });
   },
-  //错误JSON
-  resultErrorJson: (code = -1, message = '请求失败', data = {}) => {
+  // 错误JSON
+  resultErrorJson: (code = -1, message = "失败", data = {}) => {
     return {
-      data: data,
       code: code,
+      data: data,
       message: message
     }
   },
-  //成功JSON
-  resultSuccessJson: (code = 0, message = '请求成功', data = {}) => {
+  // 成功JSON
+  resultSuccessJson: (code = 200, message = "成功", data = {}) => {
     return {
-      data: data,
       code: code,
+      data: data,
       message: message
     }
   },
@@ -66,6 +68,5 @@ const utils = {
       }
     }
   }
-}
-
-module.exports = utils
+};
+module.exports = utils;

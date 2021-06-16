@@ -1,7 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const router = require('koa-router')()
-
+const router = require('@koa/router')()
 const config = require('../config')
 const projectPrefix = config.API.PROJECT_INTERFACE_PREFIX
 fs.readdirSync('./koa_controller').forEach((file) => {
@@ -10,5 +9,4 @@ fs.readdirSync('./koa_controller').forEach((file) => {
     router.use(`${projectPrefix}`, controller.routes(), controller.allowedMethods())
   }
 })
-
 module.exports = router

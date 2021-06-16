@@ -4,15 +4,16 @@
   "description": "koa2_server",
   "main": "app.ts",
   "scripts": {
-    "dev": "cross-env NODE_ENV=dev nodemon -e ts --exec ts-node app.ts",
-    "build": "cross-env NODE_ENV=prod nodemon -e ts --exec ts-node app.ts",
+    "dev": "node app.js",
+    "start": "cross-env NODE_ENV=dev nodemon -e ts --exec ts-node app.ts",
     "watch": "nodemon --watch src -e html,vue,js,less app.ts"
   },
   "author": "wangchao",
   "license": "MIT",
   "dependencies": {
+    "@koa/router": "^10.0.0",
     "cross-env": "^7.0.3",
-    "koa": "^2.13.1",
+    "koa": "^2.9.0",
     "koa-body": "^4.2.0",
     "koa-bodyparser": "^4.2.0",
     "koa-history-api-fallback": "^0.1.3",
@@ -28,8 +29,14 @@
     "typescript": "^4.3.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/node": "^7.14.5",
     "@types/koa": "^2.13.3",
     "@types/node": "^15.12.2",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2016": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
     "xl_close_port": "^1.0.1"
   }
 }
