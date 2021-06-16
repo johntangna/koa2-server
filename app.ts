@@ -1,3 +1,4 @@
+const sha1 = require('sha1')
 const Koa = require('koa')
 const convert = require('koa-convert');
 const KoaJson = require('koa-json')
@@ -10,10 +11,18 @@ const app = new Koa()
 app.use(convert(KoaBodyParser()))
 app.use(convert(KoaJson()))
 
-const { SERVICE } = config
+const { SERVICE, WECHAT } = config
 app.use(convert(routes.routes())).use(convert(routes.allowedMethods()))
 app.use(async (ctx: any, next: any) => {
   ctx.execSql = utils.query
+  const token = WECHAT.token
+  const signature = ctx.request.query.signature
+  const nonce = ctx.request.query.nonce
+  const timestamp = ctx.request.query.timestamp
+  const echostr = ctx.request.query.echostr
+  let str = [token, timestamp, nonce].sort().join('')
+  const sha = sha1(str)
+  ctx.body = sha === signature ? echostr + '' : 'failed'
   await next()
 })
 http.createServer(app.callback())

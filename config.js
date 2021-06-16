@@ -28,5 +28,10 @@ module.exports = {
   // 限制条件配置
   LIMIT: {
     UPLOAD_IMG_SIZE: 200 * 1024 * 1024
+  },
+  //微信
+  WECHAT: {
+    appID: "wx7b2be7736787f7b6",
+    token: "wxtoken"
   }
 }
